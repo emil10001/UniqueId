@@ -10,7 +10,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
-public class PrototypeCoreActivity extends Activity {
+public class ExampleActivity extends Activity {
     private static String TAG = "ExampleActivity";
 
     /** Called when the activity  is first created. */
