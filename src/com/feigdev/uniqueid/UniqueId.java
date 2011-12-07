@@ -43,6 +43,18 @@ public class UniqueId {
 		}
 	}
 	
+	public void generateId(String username, String password){
+		String value = "";
+		app_preferences = PreferenceManager.getDefaultSharedPreferences(context);
+		try {
+			value = UniqueId.computeHash(username + password);
+			editor.putString(UNIQUEID, value);
+	    	editor.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public String getId() {
 		app_preferences = PreferenceManager.getDefaultSharedPreferences(context);
 		if (!app_preferences.contains(UNIQUEID)){
