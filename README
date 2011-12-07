@@ -23,7 +23,7 @@ public class ExampleActivity extends Activity {
     
     public void getId(){
         UniqueId id = new UniqueId(ExampleActivity.this);
-        Log.thisd(TAG,id.getId());
+        Log.d(TAG,id.getId());
         id.generateId("user","pass");
         Log.d(TAG,id.getId());
     }
