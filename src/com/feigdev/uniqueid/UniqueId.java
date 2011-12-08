@@ -1,8 +1,11 @@
 package com.feigdev.uniqueid;
 
+import java.security.SecureRandom;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.provider.Settings.Secure;
 
 public class UniqueId {
 	private static final String TAG = "UniqueId";
@@ -35,7 +38,14 @@ public class UniqueId {
 	    	}
 	    }
 		try {
-			value = UniqueId.computeHash(String.valueOf(System.currentTimeMillis()));
+			String id = Secure.ANDROID_ID;
+			if (id != ""){
+				value = UniqueId.computeHash(id);
+			}
+			else {
+				SecureRandom random = new SecureRandom();
+				value = UniqueId.computeHash(String.valueOf(random.nextInt((int)System.currentTimeMillis())));
+			}
 			editor.putString(UNIQUEID, value);
 	    	editor.commit();
 		} catch (Exception e) {
@@ -44,10 +54,11 @@ public class UniqueId {
 	}
 	
 	public void forceGenerateId(){
-		String value = "";
+		String value = "";			
 		app_preferences = PreferenceManager.getDefaultSharedPreferences(context);
 		try {
-			value = UniqueId.computeHash(String.valueOf(System.currentTimeMillis()));
+			SecureRandom random = new SecureRandom();
+			value = UniqueId.computeHash(String.valueOf(random.nextInt((int)System.currentTimeMillis())));
 			editor.putString(UNIQUEID, value);
 	    	editor.commit();
 		} catch (Exception e) {
